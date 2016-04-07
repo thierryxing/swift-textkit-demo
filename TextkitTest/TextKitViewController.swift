@@ -28,7 +28,6 @@ class TextKitViewController: UIViewController,UITextViewDelegate {
         self.addKeyboardNotification()
         self.initTextView()
         self.initToolbar()
-
     }
     
     func addKeyboardNotification(){
@@ -39,11 +38,11 @@ class TextKitViewController: UIViewController,UITextViewDelegate {
     func initTextView(){
         let container = NSTextContainer(size:CGSizeMake(viewWidth!, CGFloat.max))
         container.widthTracksTextView = true;
-
+        
         let layoutManger = NSLayoutManager()
         layoutManger.addTextContainer(container)
         textStorage.addLayoutManager(layoutManger)
-
+        
         textView = UITextView(frame: self.view.bounds, textContainer: container);
         textView?.autoresizingMask = UIViewAutoresizing.FlexibleHeight
         textView?.scrollEnabled = true;
@@ -60,21 +59,25 @@ class TextKitViewController: UIViewController,UITextViewDelegate {
         let numberToolbar = UIToolbar(frame: CGRectMake(0, 0, self.view.frame.size.width, toolbarHeight))
         numberToolbar.barStyle = UIBarStyle.Default
         numberToolbar.items = [
-            UIBarButtonItem(title: "Insert Picture", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(insertPicture))]
+            UIBarButtonItem(title: "Insert Picture", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(insertPicture)),
+            UIBarButtonItem(title: "Export Json", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(exportPlainText))]
         numberToolbar.sizeToFit()
         textView!.inputAccessoryView = numberToolbar
     }
     
+    
+    //MARK: Toolbar function
     /**
      insert picture in textview
      */
     func insertPicture(){
         textStorage.beginEditing()
-        let image = UIImage(named: "testImage")
+        let image = GMImage(data: UIImagePNGRepresentation(UIImage(named: "testImage")!)!)
+        // set remote url, cause you may want to send it to server
+        image?.remoteUrl = "http://7xjlg5.com1.z0.glb.clouddn.com/1.png"
         let imgAttachment = NSTextAttachment(data: nil, ofType: nil)
         let imageWidth = viewWidth!-textViewInset*3
         let blankString = NSMutableAttributedString(string: "\n\n", attributes: nil)
-        
         imgAttachment.image = image
         imgAttachment.bounds = CGRectMake(0, 0, imageWidth, image!.size.height*(imageWidth/image!.size.width))
         
@@ -94,13 +97,27 @@ class TextKitViewController: UIViewController,UITextViewDelegate {
         textView!.scrollRangeToVisible(NSMakeRange(textView!.attributedText.length, 0))
     }
     
+    func exportPlainText(){
+        let exportTextStorage = textStorage.mutableCopy()
+        textStorage.enumerateAttribute(NSAttachmentAttributeName, inRange: NSMakeRange(0, textStorage.length), options:.LongestEffectiveRangeNotRequired) { (value, range, stop) in
+            if (value != nil) {
+                if value is NSTextAttachment{
+                    let attachment = value as! NSTextAttachment
+                    let imgTag = "<img src=\((attachment.image as! GMImage).remoteUrl)/>"
+                    exportTextStorage.replaceCharactersInRange(range, withString: imgTag)
+                }
+            }
+        }
+        NSLog("%@", exportTextStorage.string)
+    }
+    
+    
     // MARK: textView Delegate
     func textViewDidChange(textView: UITextView) {
         textContent = textView.attributedText.mutableCopy() as! NSMutableAttributedString
     }
     
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
-        NSLog("%ld, %ld",range.location,range.length);
         textView.scrollRangeToVisible(range)
         return true;
     }
@@ -108,6 +125,7 @@ class TextKitViewController: UIViewController,UITextViewDelegate {
     func textViewDidChangeSelection(textView: UITextView) {
         range = textView.selectedRange;
     }
+    
     
     // MARK: keyboard Event handle
     func keyboardShow(noti:NSNotification){
@@ -120,6 +138,8 @@ class TextKitViewController: UIViewController,UITextViewDelegate {
         textView?.frame = self.view.bounds
     }
     
+    
+    // MARK: lifecycle
     deinit{
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }

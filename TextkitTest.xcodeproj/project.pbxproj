@@ -13,6 +13,7 @@
 		E47ECD7E1CB6065800895AD7 /* TextkitTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47ECD7D1CB6065800895AD7 /* TextkitTestTests.swift */; };
 		E47ECD891CB6065800895AD7 /* TextkitTestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47ECD881CB6065800895AD7 /* TextkitTestUITests.swift */; };
 		E47ECD971CB6067F00895AD7 /* TextKitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47ECD961CB6067F00895AD7 /* TextKitViewController.swift */; };
+		E47ECD991CB6472600895AD7 /* GMImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47ECD981CB6472600895AD7 /* GMImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +46,7 @@
 		E47ECD881CB6065800895AD7 /* TextkitTestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextkitTestUITests.swift; sourceTree = "<group>"; };
 		E47ECD8A1CB6065800895AD7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E47ECD961CB6067F00895AD7 /* TextKitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextKitViewController.swift; sourceTree = "<group>"; };
+		E47ECD981CB6472600895AD7 /* GMImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GMImage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,7 @@
 				E47ECD6F1CB6065800895AD7 /* Assets.xcassets */,
 				E47ECD711CB6065800895AD7 /* LaunchScreen.storyboard */,
 				E47ECD741CB6065800895AD7 /* Info.plist */,
+				E47ECD981CB6472600895AD7 /* GMImage.swift */,
 			);
 			path = TextkitTest;
 			sourceTree = "<group>";
@@ -253,6 +256,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E47ECD971CB6067F00895AD7 /* TextKitViewController.swift in Sources */,
+				E47ECD991CB6472600895AD7 /* GMImage.swift in Sources */,
 				E47ECD6E1CB6065800895AD7 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -470,6 +474,7 @@
 				E47ECD8F1CB6065800895AD7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E47ECD901CB6065800895AD7 /* Build configuration list for PBXNativeTarget "TextkitTestTests" */ = {
 			isa = XCConfigurationList;
@@ -478,6 +483,7 @@
 				E47ECD921CB6065800895AD7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E47ECD931CB6065800895AD7 /* Build configuration list for PBXNativeTarget "TextkitTestUITests" */ = {
 			isa = XCConfigurationList;
@@ -486,6 +492,7 @@
 				E47ECD951CB6065800895AD7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
