@@ -8,12 +8,15 @@
 
 import UIKit
 
-class TextKitViewController: UIViewController,UITextViewDelegate {
-    
-    var textContent:NSMutableAttributedString = NSMutableAttributedString(string: "The NSParagraphStyle class and its subclass NSMutableParagraphStyle encapsulate the paragraph or ruler attributes used by the NSAttributedString classes. Instances of these classes are often referred to as paragraph style objects or, when no confusion will result, paragraph styles.", attributes: nil);
+class TextKitViewController: UIViewController, UITextViewDelegate, NSTextStorageDelegate  {
+
     let textStorage:NSTextStorage = NSTextStorage()
+    let layoutManger = NSLayoutManager()
     let textViewInset:CGFloat = 10.0
     let toolbarHeight:CGFloat = 50.0
+    
+    var container:NSTextContainer?
+    var textContent:NSMutableAttributedString = NSMutableAttributedString(string: "The NSParagraphStyle class and its subclass NSMutableParagraphStyle encapsulate the paragraph or ruler attributes used by the NSAttributedString classes.", attributes: nil);
     var textView:UITextView?
     var range:NSRange = NSRange.init(location: 0, length: 0)
     var viewWidth:CGFloat? = nil
@@ -36,20 +39,21 @@ class TextKitViewController: UIViewController,UITextViewDelegate {
     }
     
     func initTextView(){
-        let container = NSTextContainer(size:CGSizeMake(viewWidth!, CGFloat.max))
-        container.widthTracksTextView = true;
-        
-        let layoutManger = NSLayoutManager()
-        layoutManger.addTextContainer(container)
+        container = NSTextContainer(size:CGSizeMake(viewWidth!, CGFloat.max))
+        container!.widthTracksTextView = true;
+        layoutManger.addTextContainer(container!)
         textStorage.addLayoutManager(layoutManger)
+        textStorage.delegate = self
         
         textView = UITextView(frame: self.view.bounds, textContainer: container);
         textView?.autoresizingMask = UIViewAutoresizing.FlexibleHeight
         textView?.scrollEnabled = true;
         textView?.textContainerInset = UIEdgeInsetsMake(textViewInset, textViewInset, 0, textViewInset)
         textView?.keyboardDismissMode = UIScrollViewKeyboardDismissMode.OnDrag;
-        textView?.dataDetectorTypes = UIDataDetectorTypes.None;
-        textView?.delegate = self;
+        textView?.dataDetectorTypes = UIDataDetectorTypes.None
+        textView?.delegate = self
+        textView?.editable = true
+        textView?.selectable = true
         self.view.addSubview(textView!)
         
         textStorage.setAttributedString(textContent);
@@ -125,6 +129,26 @@ class TextKitViewController: UIViewController,UITextViewDelegate {
     
     func textViewDidChangeSelection(textView: UITextView) {
         range = textView.selectedRange;
+        if textStorage.length>=range.location-1{
+        if let _:NSTextAttachment = textStorage.attribute(NSAttachmentAttributeName, atIndex: range.location-1, effectiveRange: nil) as? NSTextAttachment{
+                confirmDeleteImage(NSMakeRange(range.location-1, 1))
+            }
+        }
+    }
+    
+    func confirmDeleteImage(range:NSRange){
+        textView?.resignFirstResponder()
+        let alertController = UIAlertController(title: "Delete this image?", message:"", preferredStyle: .ActionSheet)
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action: UIAlertAction!) in
+            self.textStorage.beginEditing()
+            self.textContent.deleteCharactersInRange(range)
+            self.textStorage.setAttributedString(self.textContent)
+            self.textStorage.endEditing()
+        })
+        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
     
     
