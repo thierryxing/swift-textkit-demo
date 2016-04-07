@@ -98,12 +98,13 @@ class TextKitViewController: UIViewController,UITextViewDelegate {
     }
     
     func exportPlainText(){
-        let exportTextStorage = textStorage.mutableCopy()
-        textStorage.enumerateAttribute(NSAttachmentAttributeName, inRange: NSMakeRange(0, textStorage.length), options:.LongestEffectiveRangeNotRequired) { (value, range, stop) in
+        let exportTextStorage = NSTextStorage()
+        exportTextStorage.setAttributedString(textContent)
+        exportTextStorage.enumerateAttribute(NSAttachmentAttributeName, inRange: NSMakeRange(0, textStorage.length), options:.LongestEffectiveRangeNotRequired) { (value, range, stop) in
             if (value != nil) {
                 if value is NSTextAttachment{
                     let attachment = value as! NSTextAttachment
-                    let imgTag = "<img src=\((attachment.image as! GMImage).remoteUrl)/>"
+                    let imgTag = "<img src='\((attachment.image as! GMImage).remoteUrl)'/>"
                     exportTextStorage.replaceCharactersInRange(range, withString: imgTag)
                 }
             }
