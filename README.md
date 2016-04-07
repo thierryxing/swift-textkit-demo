@@ -8,3 +8,4 @@ A swift based textkit demo
 * Support insert image into text as attachment.
 * Change scroll behavior when keyboard show or hide.
 * Automaticly word wrap and scroll to current selection.
+* Support export plain text with image(<img src="remote url">)
