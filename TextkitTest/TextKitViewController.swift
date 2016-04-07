@@ -131,7 +131,8 @@ class TextKitViewController: UIViewController, UITextViewDelegate, NSTextStorage
         range = textView.selectedRange;
         if textStorage.length>=range.location-1{
         if let _:NSTextAttachment = textStorage.attribute(NSAttachmentAttributeName, atIndex: range.location-1, effectiveRange: nil) as? NSTextAttachment{
-                confirmDeleteImage(NSMakeRange(range.location-1, 1))
+                confirmDeleteImage(NSMakeRange(range.location-3, 3))
+                textView.selectedRange = NSMakeRange(1, 1)
             }
         }
     }
