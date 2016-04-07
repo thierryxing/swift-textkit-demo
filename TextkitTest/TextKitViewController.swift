@@ -60,7 +60,7 @@ class TextKitViewController: UIViewController,UITextViewDelegate {
         numberToolbar.barStyle = UIBarStyle.Default
         numberToolbar.items = [
             UIBarButtonItem(title: "Insert Picture", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(insertPicture)),
-            UIBarButtonItem(title: "Export Json", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(exportPlainText))]
+            UIBarButtonItem(title: "Export Plain Text", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(exportPlainText))]
         numberToolbar.sizeToFit()
         textView!.inputAccessoryView = numberToolbar
     }
