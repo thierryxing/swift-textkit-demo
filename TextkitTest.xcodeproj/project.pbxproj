@@ -13,8 +13,9 @@
 		E47ECD7E1CB6065800895AD7 /* TextkitTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47ECD7D1CB6065800895AD7 /* TextkitTestTests.swift */; };
 		E47ECD891CB6065800895AD7 /* TextkitTestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47ECD881CB6065800895AD7 /* TextkitTestUITests.swift */; };
 		E47ECD971CB6067F00895AD7 /* TextKitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47ECD961CB6067F00895AD7 /* TextKitViewController.swift */; };
-		E47ECD991CB6472600895AD7 /* GMImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47ECD981CB6472600895AD7 /* GMImage.swift */; };
+		E47ECD991CB6472600895AD7 /* UIImage+GM.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47ECD981CB6472600895AD7 /* UIImage+GM.swift */; };
 		E47ECD9D1CB66AF600895AD7 /* GMTextAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47ECD9C1CB66AF600895AD7 /* GMTextAttachment.swift */; };
+		E4A257D01CB7B10700D33EAC /* UIView+DashBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A257CF1CB7B10700D33EAC /* UIView+DashBorder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,8 +48,9 @@
 		E47ECD881CB6065800895AD7 /* TextkitTestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextkitTestUITests.swift; sourceTree = "<group>"; };
 		E47ECD8A1CB6065800895AD7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E47ECD961CB6067F00895AD7 /* TextKitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextKitViewController.swift; sourceTree = "<group>"; };
-		E47ECD981CB6472600895AD7 /* GMImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GMImage.swift; sourceTree = "<group>"; };
+		E47ECD981CB6472600895AD7 /* UIImage+GM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+GM.swift"; sourceTree = "<group>"; };
 		E47ECD9C1CB66AF600895AD7 /* GMTextAttachment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GMTextAttachment.swift; sourceTree = "<group>"; };
+		E4A257CF1CB7B10700D33EAC /* UIView+DashBorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+DashBorder.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,7 +103,8 @@
 			children = (
 				E47ECD6D1CB6065800895AD7 /* AppDelegate.swift */,
 				E47ECD961CB6067F00895AD7 /* TextKitViewController.swift */,
-				E47ECD981CB6472600895AD7 /* GMImage.swift */,
+				E47ECD981CB6472600895AD7 /* UIImage+GM.swift */,
+				E4A257CF1CB7B10700D33EAC /* UIView+DashBorder.swift */,
 				E47ECD6F1CB6065800895AD7 /* Assets.xcassets */,
 				E47ECD711CB6065800895AD7 /* LaunchScreen.storyboard */,
 				E47ECD741CB6065800895AD7 /* Info.plist */,
@@ -260,9 +263,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				E47ECD971CB6067F00895AD7 /* TextKitViewController.swift in Sources */,
-				E47ECD991CB6472600895AD7 /* GMImage.swift in Sources */,
+				E47ECD991CB6472600895AD7 /* UIImage+GM.swift in Sources */,
 				E47ECD6E1CB6065800895AD7 /* AppDelegate.swift in Sources */,
 				E47ECD9D1CB66AF600895AD7 /* GMTextAttachment.swift in Sources */,
+				E4A257D01CB7B10700D33EAC /* UIView+DashBorder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
