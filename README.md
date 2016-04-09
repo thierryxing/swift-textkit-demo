@@ -1,9 +1,9 @@
 # Textkit Demo
 A swift based textkit demo
 
-<img src="http://7xjlg5.com1.z0.glb.clouddn.com/Simulator%20Screen%20Shot%202016%E5%B9%B44%E6%9C%887%E6%97%A5%20%E4%B8%8B%E5%8D%887.14.08.png" width="340" />
-<img src="http://7xjlg5.com1.z0.glb.clouddn.com/Simulator%20Screen%20Shot%202016%E5%B9%B44%E6%9C%887%E6%97%A5%20%E4%B8%8B%E5%8D%887.14.27.png" width="340" />
-
+<img src="http://7xjlg5.com1.z0.glb.clouddn.com/Simulator%20Screen%20Shot%202016%E5%B9%B44%E6%9C%889%E6%97%A5%20%E4%B8%8B%E5%8D%887.10.55.png" width="340" />
+<img src="http://7xjlg5.com1.z0.glb.clouddn.com/Simulator%20Screen%20Shot%202016%E5%B9%B44%E6%9C%889%E6%97%A5%20%E4%B8%8B%E5%8D%887.11.06.png" width="340" />
+<img src="http://7xjlg5.com1.z0.glb.clouddn.com/Simulator%20Screen%20Shot%202016%E5%B9%B44%E6%9C%889%E6%97%A5%20%E4%B8%8B%E5%8D%887.11.02.png" width="340" />
 
 ## Feature
 * Support Title
@@ -16,8 +16,9 @@ A swift based textkit demo
 # Textkit Demo 中文简介
 基于TextKit和Swfit的图文混排Demo（仿新浪微博的头条文章）
 
-<img src="http://7xjlg5.com1.z0.glb.clouddn.com/Simulator%20Screen%20Shot%202016%E5%B9%B44%E6%9C%887%E6%97%A5%20%E4%B8%8B%E5%8D%887.14.08.png" width="340" />
-<img src="http://7xjlg5.com1.z0.glb.clouddn.com/Simulator%20Screen%20Shot%202016%E5%B9%B44%E6%9C%887%E6%97%A5%20%E4%B8%8B%E5%8D%887.14.27.png" width="340" />
+<img src="http://7xjlg5.com1.z0.glb.clouddn.com/Simulator%20Screen%20Shot%202016%E5%B9%B44%E6%9C%889%E6%97%A5%20%E4%B8%8B%E5%8D%887.10.55.png" width="340" />
+<img src="http://7xjlg5.com1.z0.glb.clouddn.com/Simulator%20Screen%20Shot%202016%E5%B9%B44%E6%9C%889%E6%97%A5%20%E4%B8%8B%E5%8D%887.11.06.png" width="340" />
+<img src="http://7xjlg5.com1.z0.glb.clouddn.com/Simulator%20Screen%20Shot%202016%E5%B9%B44%E6%9C%889%E6%97%A5%20%E4%B8%8B%E5%8D%887.11.02.png" width="340" />
 
 ## 功能
 * 支持标题区域
