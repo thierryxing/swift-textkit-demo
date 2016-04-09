@@ -10,3 +10,4 @@ A swift based textkit demo
 * Change scroll behavior when keyboard show or hide.
 * Automaticly word wrap and scroll to current selection.
 * Support export plain text with image (html img tag)
+* Support delete image when tap
