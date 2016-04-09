@@ -105,10 +105,10 @@
 				E47ECD961CB6067F00895AD7 /* TextKitViewController.swift */,
 				E47ECD981CB6472600895AD7 /* UIImage+GM.swift */,
 				E4A257CF1CB7B10700D33EAC /* UIView+DashBorder.swift */,
+				E47ECD9C1CB66AF600895AD7 /* GMTextAttachment.swift */,
 				E47ECD6F1CB6065800895AD7 /* Assets.xcassets */,
 				E47ECD711CB6065800895AD7 /* LaunchScreen.storyboard */,
 				E47ECD741CB6065800895AD7 /* Info.plist */,
-				E47ECD9C1CB66AF600895AD7 /* GMTextAttachment.swift */,
 			);
 			path = TextkitTest;
 			sourceTree = "<group>";
