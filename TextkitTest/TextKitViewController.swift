@@ -46,7 +46,6 @@ class TextKitViewController: UIViewController, UITextViewDelegate  {
         
         self.scrollView.frame = self.view.bounds
         self.scrollView.keyboardDismissMode = UIScrollViewKeyboardDismissMode.OnDrag
-        self.scrollView.backgroundColor = UIColor.blueColor()
         
         self.initKeyboardNotification()
         self.initTitleView()
@@ -81,13 +80,14 @@ class TextKitViewController: UIViewController, UITextViewDelegate  {
         self.container.heightTracksTextView = true
         self.layoutManger.addTextContainer(self.container)
         self.textStorage.addLayoutManager(self.layoutManger)
-        self.textContent = NSMutableAttributedString(string: "The NSParagraphStyle class and its subclass NSMutableParagraphStyle encapsulate the paragraph or ruler attributes used by the NSAttributedString classes.",
+        self.textContent = NSMutableAttributedString(string: "",
                                                      attributes: fontArribuates)
         self.contentTextView = UITextView(frame: CGRectMake(15, CGRectGetMaxY(self.titleTextView.frame) + 10, self.viewWidth-30, 200), textContainer: self.container)
         self.contentTextView.scrollEnabled = false
         self.contentTextView.keyboardDismissMode = UIScrollViewKeyboardDismissMode.OnDrag;
         self.contentTextView.dataDetectorTypes = UIDataDetectorTypes.None
         self.contentTextView.delegate = self
+        self.contentTextView.typingAttributes = fontArribuates
         
         self.scrollView.addSubview(self.contentTextView)
         self.textStorage.setAttributedString(self.textContent)
@@ -152,7 +152,6 @@ class TextKitViewController: UIViewController, UITextViewDelegate  {
                     let attachment = value as! NSTextAttachment
                     let imgTag = "<img src='\(attachment.image!.remoteUrl)'/>"
                     exportTextStorage.replaceCharactersInRange(range, withString: imgTag)
-                    stop.memory = true
                 }
             }
         }
@@ -259,7 +258,7 @@ class TextKitViewController: UIViewController, UITextViewDelegate  {
         print("textViewDidChangeSelection")
         self.currentRange = textView.selectedRange;
         self.scrollToCursor(self.currentRange)
-        if self.textStorage.length>=self.currentRange.location - 1{
+        if self.currentRange.location-1 >= 0 && self.textStorage.length >= self.currentRange.location - 1{
             if let _:NSTextAttachment = self.textStorage.attribute(NSAttachmentAttributeName, atIndex: self.currentRange.location-1, effectiveRange: nil) as? NSTextAttachment{
                 print(self.lineBreakStr.characters.count)
                 confirmDeleteImage(NSMakeRange(self.currentRange.location-1, 1))
