@@ -21,7 +21,7 @@ class GMTextAttachment: NSTextAttachment {
         self.verticalOffset = verticalOffset
     }
     
-    override func attachmentBoundsForTextContainer(textContainer: NSTextContainer?, proposedLineFragment lineFrag: CGRect, glyphPosition position: CGPoint, characterIndex charIndex: Int) -> CGRect {
+    override func attachmentBounds(for textContainer: NSTextContainer?, proposedLineFragment lineFrag: CGRect, glyphPosition position: CGPoint, characterIndex charIndex: Int) -> CGRect {
         let height = lineFrag.size.height
         var scale: CGFloat = 1.0;
         let imageSize = image!.size

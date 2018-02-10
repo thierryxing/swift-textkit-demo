@@ -16,13 +16,13 @@ class TextKitViewController: UIViewController, UITextViewDelegate  {
     let singleLineHeight: CGFloat = 40.0
     let lineBreakStr:String = "\n\n"
     
-    let scrollView:UIScrollView = UIScrollView.init(frame: CGRectZero)
+    let scrollView:UIScrollView = UIScrollView.init(frame: CGRect.zero)
     let textStorage:NSTextStorage = NSTextStorage()
     let layoutManger: NSLayoutManager = NSLayoutManager()
-    let fontArribuates = [NSFontAttributeName: UIFont.systemFontOfSize(16)]
+    let fontArribuates = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16)]
     
-    var titleTextView: UITextView = UITextView(frame: CGRectZero)
-    var contentTextView: UITextView = UITextView(frame: CGRectZero)
+    var titleTextView: UITextView = UITextView(frame: CGRect.zero)
+    var contentTextView: UITextView = UITextView(frame: CGRect.zero)
     var container: NSTextContainer = NSTextContainer(size: CGSize.zero)
     var textContent: NSMutableAttributedString = NSMutableAttributedString()
     var currentRange: NSRange = NSRange.init(location: 0, length: 0)
@@ -32,10 +32,10 @@ class TextKitViewController: UIViewController, UITextViewDelegate  {
     
     
     // MARK: Life Cycle
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.title = "Post"
-        self.edgesForExtendedLayout = UIRectEdge.None
+        self.edgesForExtendedLayout = UIRectEdge(rawValue: 0)
     }
     
     override func viewDidLoad() {
@@ -45,49 +45,48 @@ class TextKitViewController: UIViewController, UITextViewDelegate  {
         self.viewHeight = self.view.frame.size.height
         
         self.scrollView.frame = self.view.bounds
-        self.scrollView.keyboardDismissMode = UIScrollViewKeyboardDismissMode.OnDrag
+        self.scrollView.keyboardDismissMode = UIScrollViewKeyboardDismissMode.onDrag
         
         self.initKeyboardNotification()
         self.initTitleView()
         self.initTextView()
         self.initToolbar()
         
-        self.scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.scrollView.bounds), self.scrollViewContentHeight)
+        self.scrollView.contentSize = CGSize(width:self.scrollView.bounds.width, height:self.scrollViewContentHeight)
         self.view.addSubview(self.scrollView)
     }
     
     deinit{
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
     // MARK: Init Function
     func initKeyboardNotification(){
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardShow), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardHide), name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardShow), name: Notification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
     }
     
     func initTitleView(){
-        self.titleTextView = UITextView(frame: CGRectMake(15, 15, self.viewWidth - 30, 100))
+        self.titleTextView = UITextView(frame: CGRect(x:15, y:15, width:self.viewWidth - 30, height:100))
         self.titleTextView.addDashedBorder()
-        self.titleTextView.font = UIFont.systemFontOfSize(18)
-        self.titleTextView.scrollEnabled = false
+        self.titleTextView.font = UIFont.systemFont(ofSize: 18)
+        self.titleTextView.isScrollEnabled = false
         self.scrollView.addSubview(self.titleTextView)
     }
     
     func initTextView(){
-        self.container = NSTextContainer(size:CGSizeMake(self.viewWidth, CGFloat.max))
+        self.container = NSTextContainer(size:CGSize(width:self.viewWidth, height:CGFloat.greatestFiniteMagnitude))
         self.container.widthTracksTextView = true
         self.container.heightTracksTextView = true
         self.layoutManger.addTextContainer(self.container)
         self.textStorage.addLayoutManager(self.layoutManger)
-        self.textContent = NSMutableAttributedString(string: "",
+        self.textContent = NSMutableAttributedString(string: "The NSParagraphStyle class and its subclass NSMutableParagraphStyle encapsulate the paragraph or ruler attributes used by the NSAttributedString classes.",
                                                      attributes: fontArribuates)
-        self.contentTextView = UITextView(frame: CGRectMake(15, CGRectGetMaxY(self.titleTextView.frame) + 10, self.viewWidth-30, 200), textContainer: self.container)
-        self.contentTextView.scrollEnabled = false
-        self.contentTextView.keyboardDismissMode = UIScrollViewKeyboardDismissMode.OnDrag;
-        self.contentTextView.dataDetectorTypes = UIDataDetectorTypes.None
+        self.contentTextView = UITextView(frame: CGRect(x:15, y:self.titleTextView.frame.maxY + 10, width:self.viewWidth-30, height:200), textContainer: self.container)
+        self.contentTextView.isScrollEnabled = false
+        self.contentTextView.keyboardDismissMode = UIScrollViewKeyboardDismissMode.onDrag;
+        self.contentTextView.dataDetectorTypes = UIDataDetectorTypes(rawValue: 0)
         self.contentTextView.delegate = self
-        self.contentTextView.typingAttributes = fontArribuates
         
         self.scrollView.addSubview(self.contentTextView)
         self.textStorage.setAttributedString(self.textContent)
@@ -95,10 +94,10 @@ class TextKitViewController: UIViewController, UITextViewDelegate  {
     }
     
     func initToolbar(){
-        let numberToolbar = UIToolbar(frame: CGRectMake(0, 0, self.view.frame.size.width, toolbarHeight))
+        let numberToolbar = UIToolbar(frame: CGRect(x:0, y:0, width:self.view.frame.size.width, height:toolbarHeight))
         numberToolbar.items = [
-            UIBarButtonItem(title: "Insert Picture", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(insertPicture)),
-            UIBarButtonItem(title: "Export Plain Text", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(exportPlainText))]
+            UIBarButtonItem(title: "Insert Picture", style: UIBarButtonItemStyle.plain, target: self, action: #selector(insertPicture)),
+            UIBarButtonItem(title: "Export Plain Text", style: UIBarButtonItemStyle.plain, target: self, action: #selector(exportPlainText))]
         self.contentTextView.inputAccessoryView = numberToolbar
     }
     
@@ -107,7 +106,7 @@ class TextKitViewController: UIViewController, UITextViewDelegate  {
     /**
      insert picture in textview
      */
-    func insertPicture(){
+    @objc func insertPicture(){
         self.contentTextView.resignFirstResponder()
         self.textStorage.beginEditing()
         
@@ -119,17 +118,17 @@ class TextKitViewController: UIViewController, UITextViewDelegate  {
         
         borderImage.remoteUrl = "http://7xjlg5.com1.z0.glb.clouddn.com/1.png"
         imgAttachment.image = borderImage
-        imgAttachment.bounds = CGRectMake(0, 0, imageWidth, borderImage.size.height*(imageWidth/borderImage.size.width))
+        imgAttachment.bounds = CGRect(x:0, y:0, width:imageWidth, height:borderImage.size.height*(imageWidth/borderImage.size.width))
         imgAttachmentString = NSAttributedString(attachment: imgAttachment)
         
         let textRange = self.locateCurrentTextRange()
         if textRange.location == 0 || textRange.location > textContent.length {
-            self.textContent.appendAttributedString(imgAttachmentString)
-            self.textContent.appendAttributedString(lineBreakAttributeString)
+            self.textContent.append(imgAttachmentString)
+            self.textContent.append(lineBreakAttributeString)
         }else{
             let index = textRange.location + textRange.length
-            self.textContent.insertAttributedString(imgAttachmentString, atIndex: index)
-            self.textContent.insertAttributedString(lineBreakAttributeString, atIndex: index + imgAttachmentString.length)
+            self.textContent.insert(imgAttachmentString, at: index)
+            self.textContent.insert(lineBreakAttributeString, at: index + imgAttachmentString.length)
         }
         
         self.contentTextView.attributedText = self.textContent
@@ -137,21 +136,21 @@ class TextKitViewController: UIViewController, UITextViewDelegate  {
         self.textStorage.endEditing()
         
         self.changeViewHeight()
-        self.scrollToCursor(self.currentRange)
+        self.scrollToCursor(range: self.currentRange)
     }
     
     /**
      Export NSAttribute String to Plain Text
      */
-    func exportPlainText(){
+    @objc func exportPlainText(){
         let exportTextStorage = NSTextStorage()
         exportTextStorage.setAttributedString(self.textContent)
-        exportTextStorage.enumerateAttribute(NSAttachmentAttributeName, inRange: NSMakeRange(0, self.textStorage.length), options:.LongestEffectiveRangeNotRequired) { (value, range, stop) in
+        exportTextStorage.enumerateAttribute(NSAttributedStringKey.attachment, in: NSMakeRange(0, self.textStorage.length), options:.longestEffectiveRangeNotRequired) { (value, range, stop) in
             if (value != nil) {
                 if value is NSTextAttachment{
                     let attachment = value as! NSTextAttachment
                     let imgTag = "<img src='\(attachment.image!.remoteUrl)'/>"
-                    exportTextStorage.replaceCharactersInRange(range, withString: imgTag)
+                    exportTextStorage.replaceCharacters(in: range, with: imgTag)
                 }
             }
         }
@@ -166,11 +165,11 @@ class TextKitViewController: UIViewController, UITextViewDelegate  {
     func confirmDeleteImage(range:NSRange){
         self.contentTextView.resignFirstResponder()
         self.contentTextView.selectedRange = NSMakeRange(1, 0)
-        let alertController = UIAlertController(title: "Delete this image?", message:"", preferredStyle: .ActionSheet)
-        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
-        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action: UIAlertAction!) in
+        let alertController = UIAlertController(title: "Delete this image?", message:"", preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil)
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { (action: UIAlertAction!) in
             self.textStorage.beginEditing()
-            self.textContent.deleteCharactersInRange(range)
+            self.textContent.deleteCharacters(in: range)
             self.textStorage.setAttributedString(self.textContent)
             self.contentTextView.attributedText = self.textContent
             self.textStorage.endEditing()
@@ -178,7 +177,7 @@ class TextKitViewController: UIViewController, UITextViewDelegate  {
         })
         alertController.addAction(cancelAction)
         alertController.addAction(okAction)
-        self.presentViewController(alertController, animated: true, completion: nil)
+        self.present(alertController, animated: true, completion: nil)
     }
     
     /**
@@ -187,11 +186,11 @@ class TextKitViewController: UIViewController, UITextViewDelegate  {
      */
     func locateCurrentTextRange() -> NSRange{
         var textRange = NSMakeRange(0, 0)
-        self.textStorage.enumerateAttributesInRange(NSMakeRange(0, textStorage.length), options: .LongestEffectiveRangeNotRequired) { (value, range, stop) in
+        self.textStorage.enumerateAttributes(in: NSMakeRange(0, textStorage.length), options: .longestEffectiveRangeNotRequired) { (value, range, stop) in
             if NSLocationInRange(self.currentRange.location, range)
             {
                 textRange = range
-                stop.memory = true
+                stop.pointee = true
             }
         }
         return textRange
@@ -203,8 +202,8 @@ class TextKitViewController: UIViewController, UITextViewDelegate  {
      - parameter range:
      */
     func scrollToCursor(range:NSRange){
-        let scrollHeight = CGRectGetMinY(self.contentTextView.frame) + self.caculateContentHeight(withRange: NSMakeRange(0, range.location))
-        let finalRect = CGRectMake(1, scrollHeight, 1, 1);
+        let scrollHeight = self.contentTextView.frame.minY + self.caculateContentHeight(withRange: NSMakeRange(0, range.location))
+        let finalRect = CGRect(x:1, y:scrollHeight, width:1, height:1);
         print("scrollToCursor : \(scrollHeight)")
         self.scrollView.scrollRectToVisible(finalRect, animated: true)
     }
@@ -218,9 +217,9 @@ class TextKitViewController: UIViewController, UITextViewDelegate  {
      */
     func caculateContentHeight(withRange range:NSRange) -> CGFloat{
         let contentSize:CGRect = self.contentTextView
-            .attributedText.attributedSubstringFromRange(range)
-            .boundingRectWithSize(CGSizeMake(self.contentTextView.frame.width, CGFloat.max)
-                , options: NSStringDrawingOptions.UsesLineFragmentOrigin, context: nil)
+            .attributedText.attributedSubstring(from: range)
+            .boundingRect(with: CGSize(width:self.contentTextView.frame.width, height:CGFloat.greatestFiniteMagnitude)
+                , options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil)
         print("caculateContentHeight withRange:\(contentSize.height)")
         // Make sure there always a single blank line in bottom
         return contentSize.height +  singleLineHeight
@@ -233,52 +232,52 @@ class TextKitViewController: UIViewController, UITextViewDelegate  {
         let originFrame = self.contentTextView.frame
         let contentTextViewHeight = self.caculateContentHeight(withRange: NSMakeRange(0, self.textStorage.length))
         
-        self.scrollViewContentHeight = CGRectGetMinY(originFrame) + contentTextViewHeight + naviBarHeight
-        self.contentTextView.frame = CGRect(x: CGRectGetMinX(originFrame), y: CGRectGetMinY(originFrame), width: CGRectGetWidth(originFrame), height: contentTextViewHeight)
+        self.scrollViewContentHeight = originFrame.minY + contentTextViewHeight + naviBarHeight
+        self.contentTextView.frame = CGRect(x: originFrame.minX, y: originFrame.minY, width: originFrame.width, height: contentTextViewHeight)
         
         print("contentTextViewHeight : \(contentTextViewHeight)")
         print("scrollViewContentHeight : \(self.scrollViewContentHeight)")
         
-        self.scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.scrollView.frame), self.scrollViewContentHeight)
+        self.scrollView.contentSize = CGSize(width:self.scrollView.frame.width, height:self.scrollViewContentHeight)
     }
     
     
     // MARK: UITextView Delegate
-    func textViewDidChange(textView: UITextView) {
+    func textViewDidChange(_ textView: UITextView) {
         print("textViewDidChange")
         self.textContent = textView.attributedText.mutableCopy() as! NSMutableAttributedString
         self.changeViewHeight()
     }
     
-    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         return true;
     }
     
-    func textViewDidChangeSelection(textView: UITextView) {
+    func textViewDidChangeSelection(_ textView: UITextView) {
         print("textViewDidChangeSelection")
         self.currentRange = textView.selectedRange;
-        self.scrollToCursor(self.currentRange)
+        self.scrollToCursor(range: self.currentRange)
         if self.currentRange.location-1 >= 0 && self.textStorage.length >= self.currentRange.location - 1{
-            if let _:NSTextAttachment = self.textStorage.attribute(NSAttachmentAttributeName, atIndex: self.currentRange.location-1, effectiveRange: nil) as? NSTextAttachment{
-                print(self.lineBreakStr.characters.count)
-                confirmDeleteImage(NSMakeRange(self.currentRange.location-1, 1))
+            if let _:NSTextAttachment = self.textStorage.attribute(NSAttributedStringKey.attachment, at: self.currentRange.location-1, effectiveRange: nil) as? NSTextAttachment{
+//                print(self.lineBreakStr.characters.count)
+                confirmDeleteImage(range: NSMakeRange(self.currentRange.location-1, 1))
             }
         }
     }
     
     
     // MARK: Keyboard notification handler
-    func keyboardShow(notification:NSNotification){
+    @objc func keyboardShow(notification:NSNotification){
         let userInfo = notification.userInfo!
-        var keyboardFrame:CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).CGRectValue()
-        keyboardFrame = self.view.convertRect(keyboardFrame, fromView: nil)
+        var keyboardFrame:CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+        keyboardFrame = self.view.convert(keyboardFrame, from: nil)
         var contentInset:UIEdgeInsets = self.scrollView.contentInset
         contentInset.bottom = keyboardFrame.size.height + self.toolbarHeight + 20
         self.scrollView.contentInset = contentInset
     }
     
-    func keyboardHide(noti:NSNotification){
-        let contentInset:UIEdgeInsets = UIEdgeInsetsZero
+    @objc func keyboardHide(noti:NSNotification){
+        let contentInset:UIEdgeInsets = UIEdgeInsets.zero
         self.scrollView.contentInset = contentInset
     }
     

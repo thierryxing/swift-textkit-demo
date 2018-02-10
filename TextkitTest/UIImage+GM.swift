@@ -27,17 +27,17 @@ extension UIImage {
      - returns: UIImage
      */
     func imageWithTopAndBottomBorder() -> UIImage{
-        let topImage = UIImage.drawWhiteImage(self.size.width, height: 20)
-        let bottomImage = UIImage.drawWhiteImage(self.size.width, height: 20)
+        let topImage = UIImage.drawWhiteImage(width: self.size.width, height: 20)
+        let bottomImage = UIImage.drawWhiteImage(width: self.size.width, height: 20)
         
-        let size = CGSizeMake(topImage.size.width, topImage.size.height + bottomImage.size.height + self.size.height)
+        let size = CGSize(width: topImage.size.width, height: topImage.size.height + bottomImage.size.height + self.size.height)
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
         
-        [topImage.drawInRect(CGRectMake(0, 0, size.width, topImage.size.height))];
-        [self.drawInRect(CGRectMake(0, topImage.size.height, size.width, self.size.height))];
-        [bottomImage.drawInRect(CGRectMake(0, self.size.height + topImage.size.height, size.width, bottomImage.size.height))];
+        topImage.draw(in: CGRect(x:0, y:0, width:size.width, height:topImage.size.height));
+        self.draw(in: CGRect(x:0, y:topImage.size.height, width:size.width, height:self.size.height));
+        bottomImage.draw(in: CGRect(x:0, y:self.size.height + topImage.size.height, width:size.width, height:bottomImage.size.height));
         
-        let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()
+        let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         
         return newImage
@@ -52,11 +52,11 @@ extension UIImage {
      - returns: UIImage
      */
     private class func drawWhiteImage(width:CGFloat,height:CGFloat) -> UIImage {
-        let size:CGSize = CGSizeMake(width, height);
+        let size:CGSize = CGSize(width:width, height:height);
         UIGraphicsBeginImageContextWithOptions(size, true, 0);
-        UIColor.whiteColor().setFill()
-        UIRectFill(CGRectMake(0, 0, size.width, size.height));
-        let image:UIImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIColor.white.setFill()
+        UIRectFill(CGRect(x:0, y:0, width:size.width, height:size.height));
+        let image:UIImage = UIGraphicsGetImageFromCurrentImageContext()!;
         UIGraphicsEndImageContext();
         return image
     }
